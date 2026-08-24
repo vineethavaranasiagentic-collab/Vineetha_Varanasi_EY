@@ -789,6 +789,119 @@ Keep calculations and basic risk/opportunity detection in Python rules.
 
 The final application should demonstrate:
 
+### Implementation Architecture Diagram
+
+```mermaid
+flowchart TD
+    UI[RM Dashboard / Demo UI]
+    ORCH[main.py<br/>Agent Orchestrator]
+    CONFIG[config.py<br/>Configuration and Environment]
+
+    subgraph INPUT[Input Data Layer]
+        CLIENTS[(clients.csv)]
+        FINANCIALS[(financials.csv)]
+        TRANSACTIONS[(transactions.csv)]
+        PRODUCTS[(products.csv)]
+        COVENANTS[(covenants.csv)]
+        CRM[(crm_notes.csv)]
+        NEWS[(industry_news.csv)]
+    end
+
+    subgraph SERVICES[Services Layer]
+        LOADER[Data Loader]
+        PROFILE[Client Profile Builder]
+        RETRIEVAL[Evidence Retrieval<br/>Chunking, Embeddings, Search]
+        COMPLIANCE[Compliance Check]
+        APPROVAL[RM Approval]
+    end
+
+    subgraph RULES[Deterministic Rules Layer]
+        RISK_RULES[Risk Rules]
+        OPPORTUNITY_RULES[Opportunity Rules and Scoring]
+    end
+
+    subgraph AGENTS[Agent Layer]
+        MONITOR[Monitoring Agent]
+        RISK[Risk Agent]
+        OPPORTUNITY[Opportunity Agent]
+        RAG[RAG Evidence Agent]
+        NBA[Next-Best-Action Agent]
+        BRIEF[Meeting Brief Agent]
+        COMM[Communication Agent]
+    end
+
+    LLM[OpenRouter LLM Gateway]
+    OUTPUTS[(Recommendations<br/>Meeting Briefs)]
+    BLOCKED[Blocked / Rejected]
+    READY[READY_TO_SEND]
+
+    UI --> ORCH
+    CONFIG --> ORCH
+    CLIENTS --> LOADER
+    FINANCIALS --> LOADER
+    TRANSACTIONS --> LOADER
+    PRODUCTS --> LOADER
+    COVENANTS --> LOADER
+    CRM --> LOADER
+    NEWS --> LOADER
+    LOADER --> PROFILE
+    PROFILE --> MONITOR
+    LOADER --> RETRIEVAL
+    MONITOR --> RISK_RULES
+    MONITOR --> OPPORTUNITY_RULES
+    RISK_RULES --> RISK
+    OPPORTUNITY_RULES --> OPPORTUNITY
+    RISK --> RAG
+    OPPORTUNITY --> RAG
+    RETRIEVAL --> RAG
+    RAG --> NBA
+    PROFILE --> NBA
+    NBA --> LLM
+    LLM --> BRIEF
+    LLM --> COMM
+    NBA --> COMPLIANCE
+    COMM --> COMPLIANCE
+    COMPLIANCE -->|Failed| BLOCKED
+    COMPLIANCE -->|Passed| APPROVAL
+    APPROVAL -->|Rejected| BLOCKED
+    APPROVAL -->|Approved| READY
+    BRIEF --> OUTPUTS
+    RISK --> OUTPUTS
+    OPPORTUNITY --> OUTPUTS
+    READY --> OUTPUTS
+    BLOCKED --> OUTPUTS
+```
+
+The implementation flow is:
+
+```text
+RM Dashboard
+    ↓
+main.py Agent Orchestrator
+    ↓
+Data Loader → Client Profile
+    ↓
+Monitoring Agent
+    ├── Risk Rules → Risk Agent
+    └── Opportunity Rules → Opportunity Agent
+                ↓
+        Retrieval Service → RAG Agent
+                ↓
+        Next-Best-Action Agent
+                ↓
+        OpenRouter LLM Gateway
+                ├── Meeting Brief Agent
+                └── Communication Agent
+                            ↓
+                    Compliance Service
+                            ↓
+                    RM Approval Service
+                    ├── Approved output
+                    └── Rejected or blocked output
+```
+
+The final application should demonstrate:
+
 ```text
                 CLIENT DATA
                     ↓
