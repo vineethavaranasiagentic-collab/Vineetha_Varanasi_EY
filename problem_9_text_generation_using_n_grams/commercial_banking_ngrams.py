@@ -76,6 +76,10 @@ def create_corpus() -> str:
 def preprocess_corpus(corpus: str) -> list[str]:
     """Reuse Problem 7 with stop-word removal disabled to retain grammar."""
     original_count = len(re.findall(r"\b\w+\b", corpus))
+    # Put spaces around punctuation before reusing Problem 7. Its punctuation
+    # removal intentionally deletes symbols, so "follow-up" could otherwise
+    # become the unnatural token "followup".
+    corpus = re.sub(r"[^\w\s]", " ", corpus)
     # Problem 7 performs lowercase, URL/email normalization, punctuation removal,
     # tokenization, and optional lemmatization. Grammar is retained here by not
     # removing stop words and not lemmatizing the generation corpus.
