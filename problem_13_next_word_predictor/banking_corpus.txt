@@ -1,0 +1,100 @@
+Customer payment received successfully
+Customer payment received successfully
+Customer payment received successfully
+Customer payment received yesterday
+Customer payment received today
+Customer receipt credited to the operating account
+Customer receipt credited to the operating account
+Customer collection received from the domestic buyer
+Customer collection received from the domestic buyer
+Supplier payment processed from the account
+Supplier payment processed from the account
+Supplier payment released after approval
+Supplier invoice payment scheduled for Friday
+Supplier invoice payment scheduled for Monday
+Loan repayment processed successfully
+Loan repayment processed successfully
+Loan repayment processed today
+Loan repayment processed today
+Loan repayment was attempted
+Term loan instalment debited from the account
+Term loan instalment debited from the account
+Working capital facility repayment processed
+Working capital facility repayment processed
+Working capital facility interest charged monthly
+Working capital facility interest charged monthly
+Credit limit increase request under review
+Credit limit increase request approved by the credit team
+Working capital facility request received from the client
+Working capital facility request received from the client
+Working capital requirement increased during the quarter
+Working capital requirement increased during the quarter
+Overdraft renewal submitted for credit review
+Overdraft renewal submitted for credit review
+Overdraft facility utilization increased this month
+Overdraft facility utilization increased this month
+Cash flow concern discussed during the client meeting
+Cash flow concern discussed during the client meeting
+Cash flow forecast shared with the relationship manager
+Cash flow forecast shared with the relationship manager
+Trade finance request received from the exporter
+Trade finance request received from the exporter
+Trade finance facility approved by the credit team
+Letter of credit issued for the overseas buyer
+Letter of credit issued for the overseas buyer
+Letter of credit documents awaiting review
+Bank guarantee requested for the new contract
+Bank guarantee requested for the new contract
+Export payment credited to the account
+Export payment credited to the account
+Import payment released to the supplier
+Import payment released to the supplier
+Corporate deposit received at month end
+Corporate deposit received at month end
+Corporate deposit balance increased this month
+Cash management service activated for the client
+Cash management service activated for the client
+Cash management review scheduled for next week
+Payroll payment processed for employees
+Payroll payment processed for employees
+Payroll payment file uploaded successfully
+Merchant payment settlement received today
+Merchant payment settlement received today
+Merchant services discussed during the client meeting
+Account fee charged for cash management
+Account fee charged for cash management
+Account fee applied to the operating account
+Bank fee disputed by the client
+Bank fee disputed by the client
+Large debit reduced the account balance
+Large debit reduced the account balance
+Large debit processed for equipment purchase
+Failed payment returned to the account
+Failed payment returned to the account
+Failed supplier payment requires investigation
+Account balance reviewed at month end
+Account balance reviewed at month end
+Account balance reduced after the supplier payment
+Account balance reduced after the supplier payment
+Financial statements received for credit assessment
+Financial statements received for credit assessment
+Updated financial statements requested by the credit team
+Customer meeting scheduled with the finance director
+Customer meeting scheduled with the finance director
+Relationship manager recorded the follow up actions
+Relationship manager recorded the follow up actions
+Relationship manager discussed cross selling opportunities
+Relationship manager discussed cross selling opportunities
+Customer requested online banking access
+Customer requested online banking access
+Customer service issue escalated to the account team
+Customer service issue escalated to the account team
+KYC documents submitted for compliance review
+KYC documents submitted for compliance review
+KYC review completed by the compliance team
+Risk monitoring flag raised after the missed payment
+Risk monitoring flag raised after the missed payment
+Interest charge posted to the loan account
+Interest charge posted to the loan account
+Account activity reviewed by the relationship manager
+Account activity reviewed by the relationship manager

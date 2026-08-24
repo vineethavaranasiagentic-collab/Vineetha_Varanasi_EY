@@ -1,0 +1,83 @@
+COMMERCIAL BANKING RELATIONSHIP MANAGER COPILOT
+HIGH-LEVEL DESCRIPTION
+
+1. PURPOSE
+
+The Commercial Banking Relationship Manager Copilot is an agentic assistant that helps Relationship Managers (RMs) turn fragmented client information into proactive, explainable relationship actions.
+
+The project uses fictional commercial-banking data only.
+
+2. INFORMATION ANALYZED
+
+The Copilot brings together:
+
+- Client financials
+- Account behavior and transactions
+- Banking product usage
+- Loan and covenant status
+- CRM and RM notes
+- Market and industry news
+
+3. CORE CAPABILITIES
+
+The Copilot can:
+
+- Consolidate fragmented client information into a simple client profile.
+- Monitor financial performance, account activity, product usage, covenants, and industry conditions.
+- Identify early warning signals such as declining balances, delayed payments, covenant stress, and industry deterioration.
+- Identify cross-sell opportunities such as working-capital facilities, cash management, trade finance, and payroll services.
+- Identify retention risks from declining balances, reduced product usage, and negative client interactions.
+- Retrieve supporting evidence from client documents, CRM notes, transactions, financials, covenants, and industry information.
+- Score opportunities using evidence strength, client need, relationship relevance, and timing.
+- Generate explainable next-best-actions.
+- Prepare concise client meeting briefs.
+- Draft client outreach emails.
+- Perform basic compliance checks on generated communications.
+- Require explicit RM approval before a communication can be marked ready to send.
+
+4. HIGH-LEVEL WORKFLOW
+
+Client Data
+    -> Client Profile
+    -> Monitoring
+    -> Detect Risks and Opportunities
+    -> Retrieve Supporting Evidence
+    -> Reason and Score
+    -> Generate Next-Best-Action
+    -> Prepare Meeting Brief and Communication Draft
+    -> Compliance Check
+    -> RM Approval
+    -> Ready to Send or Stop
+
+5. HUMAN-IN-THE-LOOP CONTROL
+
+The Copilot only drafts communications. It does not independently send client messages.
+
+A communication can be marked READY_TO_SEND only when:
+
+- The recommendation has supporting evidence.
+- The communication passes the compliance check.
+- The RM explicitly approves it.
+
+Rejected, unsupported, or non-compliant outputs must stop and require review or correction.
+
+6. ROLE OF THE LLM
+
+The LLM may be used for:
+
+- Explaining detected signals
+- Summarizing client information
+- Reasoning about opportunities
+- Generating next-best-actions
+- Preparing meeting briefs
+- Drafting communications
+
+Calculations, thresholds, basic risk and opportunity detection, compliance controls, approval status, and sending permissions remain outside the LLM in deterministic Python logic.
+
+7. EXPECTED VALUE
+
+The Copilot is intended to reduce RM meeting-preparation effort, improve early risk awareness, surface relevant relationship opportunities, provide evidence-based explanations, and support consistent client outreach.
+
+8. SCOPE BOUNDARY
+
+This is not a full banking platform or an autonomous communication system. It is a focused Commercial Banking Relationship Manager Copilot for fictional data that supports analysis, recommendations, meeting preparation, communication drafting, compliance checking, and human approval.
