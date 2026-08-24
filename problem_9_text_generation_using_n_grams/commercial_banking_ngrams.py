@@ -26,9 +26,11 @@ import pandas as pd
 from nltk.tokenize import wordpunct_tokenize
 
 # Reuse Problem 7's preprocessing function and its selected configuration.
-PREPROCESSING_DIR = Path(__file__).resolve().parents[1] / "problem_7_preprocessing_pipeline"
-sys.path.insert(0, str(PREPROCESSING_DIR))
-from preprocessing_pipeline import preprocess_text  # noqa: E402
+# Add the repository root because Python places the script's folder, rather
+# than the repository root, on sys.path when this file is run directly.
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPOSITORY_ROOT))
+from problem_7_preprocessing_pipeline.preprocessing_pipeline import preprocess_text
 
 RANDOM_SEED = 42
 MIN_CORPUS_WORDS = 5_000
