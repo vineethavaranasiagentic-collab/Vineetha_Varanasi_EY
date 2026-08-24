@@ -26,7 +26,7 @@ import pandas as pd
 from nltk.tokenize import wordpunct_tokenize
 
 # Reuse Problem 7's preprocessing function and its selected configuration.
-PREPROCESSING_DIR = Path(__file__).resolve().parents[1] / "preprocessing_pipeline"
+PREPROCESSING_DIR = Path(__file__).resolve().parents[1] / "problem_7_preprocessing_pipeline"
 sys.path.insert(0, str(PREPROCESSING_DIR))
 from preprocessing_pipeline import preprocess_text  # noqa: E402
 
@@ -181,7 +181,8 @@ def main() -> None:
     print(f"NLTK version: {nltk.__version__}")
     corpus = create_corpus()
     tokens = preprocess_corpus(corpus)
-    print(f"Verified corpus size: {len(re.findall(r'\b\w+\b', corpus))} words")
+    corpus_word_count = len(re.findall(r"\b\w+\b", corpus))
+    print(f"Verified corpus size: {corpus_word_count} words")
     generated_passages: list[list[str]] = []
     metric_rows: list[dict[str, float | int | str]] = []
     for n, label in [(2, "BIGRAM"), (3, "TRIGRAM"), (4, "FOUR-GRAM")]:
