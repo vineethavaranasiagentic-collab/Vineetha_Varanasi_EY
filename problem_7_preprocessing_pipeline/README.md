@@ -1,27 +1,32 @@
 # Banking Text Preprocessing Pipeline
 
-This program demonstrates reusable preprocessing for three messy Commercial Banking Relationship Manager Copilot texts.
+This program demonstrates reusable preprocessing for three messy, user-provided texts.
 
 ## What it does
 
 - Converts text to lowercase.
-- Replaces URLs with `URL_PRESENT`.
-- Replaces email addresses with `EMAIL_PRESENT`.
+- Removes URLs and email addresses.
 - Removes punctuation and extra whitespace.
-- Tokenizes text with spaCy.
+- Tokenizes text with NLTK.
 - Optionally removes stop words.
 - Optionally lemmatizes words.
-- Prints token-count metrics for three pipeline configurations.
+- Compares all four stopword/lemmatization configurations.
 
 The actual URLs and email addresses are not retained in the processed output.
 
 ## Run in PowerShell
 
-From the project root:
+From the repository root:
 
 ```powershell
-cd "c:\Users\user\Documents\AiTraining\Task1\Vineetha_Varanasi_EY\preprocessing_pipeline"
-& "c:\Users\user\Documents\AiTraining\Task1\.venv\Scripts\python.exe" preprocessing_pipeline.py
+cd "c:\Users\user\Documents\AgenticAITraining\Vineetha_Varanasi_EY"
+python .\problem_7_preprocessing_pipeline\preprocessing_pipeline.py
 ```
 
-The script automatically installs spaCy and downloads `en_core_web_sm` if they are missing. Internet access is required the first time for setup.
+Install NLTK once if needed:
+
+```powershell
+python -m pip install nltk
+```
+
+The script automatically downloads the NLTK tokenizer, stopword, WordNet, and part-of-speech tagger resources the first time it runs. Internet access is required for that first run.
