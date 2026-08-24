@@ -1,0 +1,22 @@
+# Secrets and local configuration
+.env
+.env.*
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Generated outputs
+*.png
+*.jpg
+*.jpeg
+*.csv
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
