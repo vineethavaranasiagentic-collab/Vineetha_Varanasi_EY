@@ -2,27 +2,24 @@
 from __future__ import annotations
 
 import hashlib
+import json
+import re
 from pathlib import Path
 from typing import Any
 
-import chromadb
+import numpy as np
 import streamlit as st
 from pypdf import PdfReader
 
 BASE_DIR = Path(__file__).resolve().parent
 UPLOAD_DIR = BASE_DIR / "data" / "uploads"
-CHROMA_DIR = BASE_DIR / "chroma_db"
-COLLECTION_NAME = "commercial_banking_documents"
+INDEX_PATH = BASE_DIR / "hr_policy_index.json"
 MODEL_NAME = "all-MiniLM-L6-v2"
-DEFAULT_CLIENT = "Default Client"
 TOP_K = 5
-RELEVANCE_THRESHOLD = 0.70
+# Smaller chunks keep individual policy sections together and produce better
+# matches for short questions such as "performance policy".
+RELEVANCE_THRESHOLD = 0.20
 NO_INFORMATION = "The information is not available in the uploaded document."
-
-
-def get_collection() -> Any:
-    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
-    return client.get_or_create_collection(name=COLLECTION_NAME, metadata={"hnsw:space": "cosine"})
 
 
 @st.cache_resource(show_spinner=False)
@@ -36,12 +33,12 @@ def extract_chunks(path: Path) -> list[dict[str, Any]]:
     output: list[dict[str, Any]] = []
     for page_number, page in enumerate(reader.pages, 1):
         words = " ".join((page.extract_text() or "").split()).split()
-        for index in range(0, len(words), 650):
-            text = " ".join(words[index:index + 800])
+        for index in range(0, len(words), 90):
+            text = " ".join(words[index:index + 140])
             if text:
-                identity = f"{DEFAULT_CLIENT}|{path.name}|{page_number}|{index}|{text}"
-                output.append({"id": hashlib.sha256(identity.encode()).hexdigest(), "text": text, "source": path.name, "page": page_number, "client": DEFAULT_CLIENT})
-            if index + 800 >= len(words):
+                identity = f"{path.name}|{page_number}|{index}|{text}"
+                output.append({"id": hashlib.sha256(identity.encode()).hexdigest(), "text": text, "source": path.name, "page": page_number})
+            if index + 140 >= len(words):
                 break
     return output
 
@@ -53,30 +50,46 @@ def process_document(uploaded: Any) -> tuple[str, int]:
     chunks = extract_chunks(path)
     if not chunks:
         raise ValueError("No extractable text was found in the PDF.")
-    store = get_collection()
-    ids = [item["id"] for item in chunks]
-    existing = set(store.get(ids=ids).get("ids", []))
-    new_items = [item for item in chunks if item["id"] not in existing]
-    if new_items:
-        model = get_model()
-        store.upsert(ids=[item["id"] for item in new_items], documents=[item["text"] for item in new_items], metadatas=[{"source": item["source"], "page": item["page"], "client": item["client"]} for item in new_items], embeddings=model.encode([item["text"] for item in new_items], normalize_embeddings=True).tolist())
-    return path.name, len(new_items)
+    model = get_model()
+    embeddings = model.encode([item["text"] for item in chunks], normalize_embeddings=True).tolist()
+    INDEX_PATH.write_text(json.dumps({"chunks": chunks, "embeddings": embeddings}), encoding="utf-8")
+    return path.name, len(chunks)
 
 
 def ask_question(question: str) -> dict[str, Any]:
-    store = get_collection()
-    if not question.strip() or not store.get(where={"client": DEFAULT_CLIENT}, limit=1).get("ids"):
+    if not question.strip() or not INDEX_PATH.exists():
         return {"answer": NO_INFORMATION, "chunks": []}
-    result = store.query(query_embeddings=get_model().encode([question], normalize_embeddings=True).tolist(), n_results=TOP_K, where={"client": DEFAULT_CLIENT}, include=["documents", "metadatas", "distances"])
+    data = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
+    query_vector = get_model().encode([question], normalize_embeddings=True)[0]
+    scores = np.asarray(data["embeddings"], dtype=np.float32) @ query_vector
+    indices = np.argsort(scores)[::-1][:TOP_K]
     chunks = []
-    for text, metadata, distance in zip(result["documents"][0], result["metadatas"][0], result["distances"][0]):
-        relevance = 1.0 - float(distance)
+    for index in indices:
+        item = data["chunks"][int(index)]
+        relevance = float(scores[index])
         if relevance >= RELEVANCE_THRESHOLD:
-            chunks.append({"text": text, **metadata, "relevance": relevance})
+            chunks.append({**item, "relevance": relevance})
     if not chunks:
         return {"answer": NO_INFORMATION, "chunks": []}
-    evidence = "\n\n".join(f"{item['source']} — page {item['page']}: {item['text']}" for item in chunks)
-    return {"answer": f"Based only on the uploaded document evidence:\n\n{evidence}", "chunks": chunks}
+    # Return a concise answer from the matching policy section rather than
+    # dumping the complete PDF chunk. The full retrieved evidence remains
+    # visible below the answer.
+    stop_words = {"what", "when", "where", "which", "who", "how", "can", "could", "would", "tell", "give", "please", "about", "the", "is", "are", "does", "do", "me"}
+    query_terms = {term for term in re.findall(r"[a-z0-9]+", question.lower()) if len(term) > 2 and term not in stop_words}
+    synonym_groups = ({"leave", "vacation", "holidays"}, {"performance", "review", "reviews", "appraisal"}, {"work", "remote", "home"})
+    for group in synonym_groups:
+        if query_terms & group:
+            query_terms.update(group)
+    sentences: list[str] = []
+    for item in chunks:
+        for sentence in re.split(r"(?<=[.!?])\s+", item["text"]):
+            sentence_terms = set(re.findall(r"[a-z0-9]+", sentence.lower()))
+            if query_terms & sentence_terms:
+                sentences.append(sentence.strip())
+    answer_text = " ".join(dict.fromkeys(sentences[:4]))
+    if not answer_text:
+        answer_text = chunks[0]["text"]
+    return {"answer": answer_text, "chunks": chunks}
 
 
 def main() -> None:
