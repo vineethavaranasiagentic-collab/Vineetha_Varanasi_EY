@@ -20,4 +20,14 @@ The first run may download `all-MiniLM-L6-v2`. Ticket chunks and embeddings are 
 
 The program runs a paraphrase test for `Session expires randomly every few minutes.` versus `App keeps logging me out.`, then opens an interactive prompt. Type `exit` to quit.
 
+## Planner and executor
+
+Run the inspectable planner-executor workflow with:
+
+```powershell
+python planner_executor.py
+```
+
+The planner creates steps for validation, model loading, indexing, semantic search, and reporting. The executor runs those steps and prints the plan, indexed counts, matches, similarity scores, and ticket evidence.
+
 Similarity is calculated from ChromaDB cosine distance as `1 - distance`, so higher scores indicate better semantic matches.

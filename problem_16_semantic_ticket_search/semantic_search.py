@@ -73,7 +73,8 @@ def index_tickets(model: Any) -> tuple[Any, int, int]:
     # ChromaDB upsert is idempotent for these deterministic IDs. This avoids a
     # separate read-before-write operation and safely refreshes changed files.
     if all_chunks:
-        vectors = model.encode([chunk["text"] for chunk in all_chunks], normalize_embeddings=True).tolist()
+        encoded = model.encode([chunk["text"] for chunk in all_chunks], normalize_embeddings=True)
+        vectors = encoded.tolist() if hasattr(encoded, "tolist") else encoded
         LOCAL_INDEX.write_text(json.dumps({"chunks": all_chunks, "embeddings": vectors}), encoding="utf-8")
         collection = {"chunks": all_chunks, "embeddings": vectors}
     return collection, len(tickets), len(all_chunks)
