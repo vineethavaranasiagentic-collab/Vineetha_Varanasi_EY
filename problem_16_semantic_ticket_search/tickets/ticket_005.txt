@@ -1,0 +1,12 @@
+Ticket ID: TKT-005
+Status: Resolved
+Category: Account Balance
+
+Customer Issue:
+My account balance has not changed even though I transferred money into the account this morning.
+
+Support:
+The incoming transfer was still being processed.
+
+Resolution:
+The transfer was manually reconciled and the account balance was updated.

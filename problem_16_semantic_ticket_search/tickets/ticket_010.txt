@@ -1,0 +1,12 @@
+Ticket ID: TKT-010
+Status: Resolved
+Category: Transaction
+
+Customer Issue:
+A transaction that I made yesterday is still showing as pending.
+
+Support:
+The payment was waiting for final settlement from the payment processor.
+
+Resolution:
+The transaction completed successfully after settlement and changed from pending to completed.

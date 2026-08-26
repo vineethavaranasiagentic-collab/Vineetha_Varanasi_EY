@@ -1,0 +1,12 @@
+Ticket ID: TKT-009
+Status: Resolved
+Category: File Upload
+
+Customer Issue:
+I am trying to upload a PDF document but the system keeps rejecting the file.
+
+Support:
+The document contained an unsupported PDF encoding.
+
+Resolution:
+The customer saved the document again using a standard PDF format. The new file uploaded successfully.

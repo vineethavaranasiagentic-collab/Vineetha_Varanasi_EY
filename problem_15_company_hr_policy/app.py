@@ -1,4 +1,4 @@
-"""Commercial Banking Relationship Manager Copilot."""
+"""HR Management Document Copilot."""
 from __future__ import annotations
 
 import hashlib
@@ -80,8 +80,8 @@ def ask_question(question: str) -> dict[str, Any]:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Commercial Banking Copilot", page_icon="🏦")
-    st.title("Commercial Banking Relationship Manager Copilot")
+    st.set_page_config(page_title="HR Management System", page_icon="👥")
+    st.title("HR Management System")
     st.caption("Answers are based only on the uploaded document. Verify information before taking action.")
     st.subheader("Upload a document")
     uploaded = st.file_uploader("Choose one client PDF document", type=["pdf"])

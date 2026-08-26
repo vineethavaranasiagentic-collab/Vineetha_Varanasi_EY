@@ -1,0 +1,12 @@
+Ticket ID: TKT-006
+Status: Resolved
+Category: Notifications
+
+Customer Issue:
+I am no longer receiving email notifications when transactions happen on my account.
+
+Support:
+Transaction alerts had been disabled in the notification settings.
+
+Resolution:
+Transaction email notifications were enabled again and a test notification was delivered successfully.

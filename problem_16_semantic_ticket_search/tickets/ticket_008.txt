@@ -1,0 +1,12 @@
+Ticket ID: TKT-008
+Status: Resolved
+Category: Credit Card
+
+Customer Issue:
+My credit card payment was declined even though I have sufficient funds available.
+
+Support:
+The card security system had temporarily blocked the card because of an unusual transaction pattern.
+
+Resolution:
+The security block was removed after verifying the customer's identity. The customer successfully completed a transaction.

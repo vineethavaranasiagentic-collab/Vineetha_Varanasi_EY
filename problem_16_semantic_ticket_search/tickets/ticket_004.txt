@@ -1,0 +1,12 @@
+Ticket ID: TKT-004
+Status: Resolved
+Category: Mobile Application
+
+Customer Issue:
+The mobile application closes unexpectedly whenever I open the reports section.
+
+Support:
+We found a known issue in the reporting module of the installed app version.
+
+Resolution:
+The customer updated the application to the latest version. The reports section then worked normally.

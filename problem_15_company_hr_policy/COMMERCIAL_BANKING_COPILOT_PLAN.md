@@ -1,4 +1,4 @@
-# Commercial Banking Relationship Manager Copilot Plan
+# Problem 15 — Commercial Banking Relationship Manager Copilot Plan
 
 ## Objective
 Build a document-grounded assistant that allows Relationship Managers to upload client PDFs, index them in persistent ChromaDB, ask questions, inspect exact evidence, and safely identify missing information.

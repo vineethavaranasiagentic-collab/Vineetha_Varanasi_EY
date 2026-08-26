@@ -1,0 +1,12 @@
+Ticket ID: TKT-002
+Status: Resolved
+Category: Payments
+
+Customer Issue:
+I was charged twice for the same order. Both transactions have the same amount.
+
+Support:
+We checked the payment gateway and confirmed that the transaction was submitted twice.
+
+Resolution:
+The duplicate payment was reversed and the customer was refunded.

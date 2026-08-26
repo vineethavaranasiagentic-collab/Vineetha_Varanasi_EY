@@ -1,0 +1,12 @@
+Ticket ID: TKT-007
+Status: Resolved
+Category: Performance
+
+Customer Issue:
+The dashboard takes a very long time to load and sometimes appears frozen.
+
+Support:
+We identified a database query that was taking longer than expected.
+
+Resolution:
+The database query was optimized and the application cache was refreshed. Dashboard loading returned to normal.

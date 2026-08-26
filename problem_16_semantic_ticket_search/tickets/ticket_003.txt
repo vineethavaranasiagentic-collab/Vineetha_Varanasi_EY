@@ -1,0 +1,12 @@
+Ticket ID: TKT-003
+Status: Resolved
+Category: Password
+
+Customer Issue:
+I cannot remember my password and I am unable to access my account.
+
+Support:
+We verified the customer's identity and initiated a password reset.
+
+Resolution:
+A password reset link was sent to the registered email address. The customer successfully logged in.
