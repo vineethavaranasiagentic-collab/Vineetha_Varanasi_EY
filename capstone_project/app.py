@@ -1,12 +1,33 @@
 """Streamlit interface for the Commercial Banking RM Copilot."""
 
 import json
+from pathlib import Path
+from typing import Any
 
 import streamlit as st
 
 from agents import CLIENTS, create_plan, execute_plan
 
-NO_INFORMATION = "The information is not available in the supplied client records."
+NO_INFORMATION = "The information is not available in the uploaded document."
+
+
+def extract_chunks(path: Path) -> list[dict[str, Any]]:
+    """Extract text chunks from a plain-text evidence file.
+
+    This small public helper keeps imports safe for repository-wide tests and
+    provides a reusable starting point for future PDF/document ingestion.
+    """
+    if not path.exists() or not path.is_file():
+        return []
+    text = path.read_text(encoding="utf-8", errors="replace").strip()
+    if not text:
+        return []
+    words = text.split()
+    chunks = []
+    for start in range(0, len(words), 140):
+        chunk_words = words[start : start + 140]
+        chunks.append({"text": " ".join(chunk_words), "source": path.name, "page": 1})
+    return chunks
 
 st.set_page_config(page_title="RM Copilot", page_icon="🏦", layout="wide")
 st.title("Commercial Banking Relationship Manager Copilot")
